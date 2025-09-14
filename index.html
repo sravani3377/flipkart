@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Flipkart — Colorful Shop</title>
+
+  <!-- Google font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #0f1724;
+      --card: #0b1220;
+      --muted: #9aa4b2;
+      --accent1: linear-gradient(135deg,#ff7a18,#af002d 50%,#7a00ff);
+      --accent2: linear-gradient(135deg,#00c6ff,#0072ff);
+      --glass: rgba(255,255,255,0.04);
+      --glass-2: rgba(255,255,255,0.02);
+      --success: #00d084;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial;
+      background: radial-gradient(1200px 500px at 10% 10%, rgba(122,0,255,0.07), transparent),
+                  radial-gradient(900px 400px at 90% 90%, rgba(0,198,255,0.04), transparent),
+                  linear-gradient(180deg,#071022 0%, #08101b 100%);
+      color:#e6eef8;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding:28px;
+    }
+
+    /* container */
+    .wrap{
+      max-width:1200px;
+      margin:0 auto;
+    }
+
+    /* header */
+    header{
+      display:flex;
+      gap:18px;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:22px;
+    }
+    .brand{
+      display:flex;
+      gap:12px;
+      align-items:center;
+    }
+    .logo {
+      width:56px;
+      height:56px;
+      border-radius:10px;
+      background: var(--accent1);
+      display:grid;
+      place-items:center;
+      font-weight:800;
+      font-size:20px;
+      box-shadow: 0 6px 18px rgba(122,0,255,0.18), inset 0 -6px 18px rgba(255,255,255,0.06);
+    }
+    .brand h1{
+      font-size:20px;
+      margin:0;
+      letter-spacing:-0.3px;
+    }
+    .brand p{margin:0;color:var(--muted);font-size:13px}
+
+    /* search */
+    .search-wrap{
+      flex:1;
+      margin:0 22px;
+      display:flex;
+      gap:12px;
+      align-items:center;
+    }
+    .search{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      background:var(--glass);
+      border-radius:12px;
+      padding:10px 14px;
+      width:100%;
+      backdrop-filter: blur(6px);
+    }
+    .search input{
+      background:transparent;
+      border:0;
+      outline:none;
+      color:inherit;
+      font-size:15px;
+      flex:1;
+    }
+    .actions{
+      display:flex;
+      gap:10px;
+      align-items:center;
+    }
+    .btn{
+      border:0;
+      padding:8px 12px;
+      border-radius:12px;
+      cursor:pointer;
+      font-weight:600;
+      background:var(--glass-2);
+      color:var(--muted);
+    }
+    .btn.primary{
+      background:linear-gradient(90deg,#ff8a18,#ff3d81);
+      color:white;
+      box-shadow: 0 6px 20px rgba(255,77,115,0.14);
+    }
+
+    /* hero */
+    .hero{
+      display:grid;
+      grid-template-columns: 1fr 360px;
+      gap:20px;
+      margin-bottom:20px;
+      align-items:stretch;
+    }
+    .hero-card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+      border-radius:16px;
+      padding:24px;
+      box-shadow: 0 8px 30px rgba(2,6,23,0.6);
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      min-height:180px;
+    }
+    .hero h2{margin:0 0 8px 0;font-size:22px}
+    .hero p{margin:0;color:var(--muted)}
+
+    .hero-side{
+      background:var(--card);
+      border-radius:12px;
+      padding:14px;
+      display:flex;
+      align-items:center;
+      gap:12px;
+      justify-content:center;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.45);
+    }
+
+    /* categories */
+    .chips{
+      display:flex;
+      gap:10px;
+      margin:18px 0;
+      flex-wrap:wrap;
+    }
+    .chip{
+      padding:8px 12px;
+      border-radius:999px;
+      background: linear-gradient(90deg, rgba(255,255,255,0.02), transparent);
+      border:1px solid rgba(255,255,255,0.03);
+      font-weight:600;
+      color:var(--muted);
+      cursor:pointer;
+      transition:all .18s ease;
+    }
+    .chip:hover{transform:translateY(-3px); color:white; box-shadow: 0 8px 20px rgba(0,0,0,0.45)}
+
+    /* product grid */
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fill,minmax(220px,1fr));
+      gap:16px;
+    }
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+      border-radius:12px;
+      padding:12px;
+      overflow:hidden;
+      transition: transform .18s ease, box-shadow .18s ease;
+      border: 1px solid rgba(255,255,255,0.03);
+    }
+    .card:hover{ transform: translateY(-6px); box-shadow: 0 18px 40px rgba(2,6,23,0.6) }
+    .thumb{
+      height:160px;
+      border-radius:8px;
+      background: linear-gradient(135deg,#ffd6a5,#ffb3c6);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#102027;
+      font-weight:700;
+      font-size:18px;
+      margin-bottom:12px;
+    }
+    .title{font-weight:700;margin:0 0 6px 0;font-size:15px}
+    .desc{margin:0;color:var(--muted);font-size:13px;margin-bottom:10px}
+    .price-row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+    .price{font-weight:800}
+    .old{color:var(--muted);text-decoration:line-through;font-size:13px}
+    .buy{
+      border:0;padding:8px 10px;border-radius:8px;font-weight:700;cursor:pointer;
+      background:var(--accent2);color:white;
+      box-shadow: 0 8px 22px rgba(0,114,255,0.12);
+    }
+
+    /* footer */
+    footer{
+      margin-top:28px;
+      color:var(--muted);
+      font-size:13px;
+      text-align:center;
+    }
+
+    /* responsive */
+    @media (max-width:900px){
+      .hero{grid-template-columns:1fr}
+      .search-wrap{margin:8px 0}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo">FK</div>
+        <div>
+          <h1>Flipkart UI</h1>
+          <p>Daily Deals • Fast Delivery</p>
+        </div>
+      </div>
+
+      <div class="search-wrap" style="max-width:700px;">
+        <div class="search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden><path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <input placeholder="Search for products, brands and more" aria-label="search" />
+          <button class="btn">Search</button>
+        </div>
+
+        <div class="actions">
+          <button class="btn">Login</button>
+          <button class="btn primary">Cart (0)</button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-card">
+          <div>
+            <h2>Big Savings Today</h2>
+            <p>Extra discounts on top categories — electronics, fashion and home. Hurry, deals end soon!</p>
+          </div>
+
+          <div style="display:flex;gap:12px;align-items:center;margin-top:16px;">
+            <div style="padding:8px 12px;border-radius:10px;background:linear-gradient(90deg,#ffd54a,#ff7043);font-weight:700;color:#102027">50% OFF</div>
+            <div style="padding:8px 12px;border-radius:10px;background:linear-gradient(90deg,#9be15d,#00d084);font-weight:700;color:#03260f">Free Delivery</div>
+            <div style="padding:8px 12px;border-radius:10px;background:linear-gradient(90deg,#00c6ff,#0072ff);font-weight:700;color:white">Best Sellers</div>
+          </div>
+        </div>
+
+        <aside class="hero-side">
+          <div style="text-align:center;">
+            <div style="font-weight:800;font-size:22px;margin-bottom:8px">Today’s Top Pick</div>
+            <div style="font-size:13px;color:var(--muted);margin-bottom:12px">Trending gadget of the season</div>
+            <button class="btn primary" style="padding:10px 14px;border-radius:10px">Shop Now</button>
+          </div>
+        </aside>
+      </section>
+
+      <div class="chips" aria-hidden>
+        <div class="chip">Mobiles</div>
+        <div class="chip">Electronics</div>
+        <div class="chip">Fashion</div>
+        <div class="chip">Home</div>
+        <div class="chip">Beauty</div>
+        <div class="chip">Appliances</div>
+      </div>
+
+      <section>
+        <h3 style="margin:0 0 12px 0">Featured Products</h3>
+
+        <div class="grid" id="productGrid">
+          <!-- product cards inserted by JS below -->
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      Built with ❤️ — customize this template for your Flipkart project.
+    </footer>
+  </div>
+
+  <script>
+    // Sample product data — replace with your real data or templating
+    const products = [
+      { id:1, title:"Smartphone X12 Pro", desc:"6.7\" • 8GB RAM • 128GB", price:"₹24,999", old:"₹29,999" },
+      { id:2, title:"Wireless Headphones", desc:"ANC • 30H playtime", price:"₹3,499", old:"₹5,999" },
+      { id:3, title:"Classic Sneakers", desc:"Comfort fit • Size range", price:"₹1,699", old:"₹2,499" },
+      { id:4, title:"4K Smart TV 43\"", desc:"HDR • Smart OS", price:"₹22,999", old:"₹34,999" },
+      { id:5, title:"Air Fryer 5L", desc:"Easy Clean • Timer", price:"₹4,299", old:"₹6,499" },
+      { id:6, title:"Backpack", desc:"Waterproof • 25L", price:"₹899", old:"₹1,599" },
+    ];
+
+    const grid = document.getElementById('productGrid');
+    products.forEach(p=>{
+      const div = document.createElement('div');
+      div.className = 'card';
+      div.innerHTML = `
+        <div class="thumb">IMG</div>
+        <div class="title">${p.title}</div>
+        <div class="desc">${p.desc}</div>
+        <div class="price-row">
+          <div>
+            <div class="price">${p.price}</div>
+            <div class="old">${p.old}</div>
+          </div>
+          <div>
+            <button class="buy" onclick="addToCart(${p.id})">ADD</button>
+          </div>
+        </div>
+      `;
+      grid.appendChild(div);
+    });
+
+    function addToCart(id){
+      // simple demo: increment cart count on button
+      const cartBtn = document.querySelector('.btn.primary');
+      const match = cartBtn.textContent.match(/Cart \((\d+)\)/);
+      let count = match ? parseInt(match[1]) : 0;
+      cartBtn.textContent = `Cart (${count+1})`;
+      cartBtn.animate([{transform:'scale(1.05)'},{transform:'scale(1)'}],{duration:200});
+    }
+  </script>
+</body>
+</html>
+
