@@ -58,9 +58,7 @@ pipeline {
         success {
             echo "✅ Docker image built, pushed, and container running on port ${HOST_PORT}"
         }
-        failure {
-            echo "❌ Pipeline failed!"
-        }
+        
     }
 }
 
